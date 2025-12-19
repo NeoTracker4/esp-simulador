@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>ESP Simulador</title>
+<style>
+/* Fundo animado com efeito neon */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(-45deg, #0f0f0f, #11172a, #0a1f2d, #0f0f0f);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #fff;
+    text-align: center;
+}
+
+@keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+}
+
+/* Cabeçalho com neon */
+header {
+    padding: 30px;
+    background: rgba(0,0,0,0.5);
+    box-shadow: 0 0 30px #0ff;
+    border-bottom: 2px solid #0ff;
+}
+
+/* Botão estilizado */
+button {
+    padding: 12px 25px;
+    margin: 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #0ff;
+    color: #000;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 0 15px #0ff;
+}
+button:hover {
+    background: #0aa;
+    color: #fff;
+    box-shadow: 0 0 30px #0ff;
+}
+
+/* Container de jogadores */
+#players {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Blocos dos jogadores com neon e animação */
+.player {
+    width: 60px;
+    height: 60px;
+    margin: 15px;
+    border-radius: 12px;
+    transition: 0.3s;
+    box-shadow: 0 0 15px #0ff;
+    animation: pulse 1.5s infinite, glow 2s infinite alternate;
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+@keyframes glow {
+    0% { box-shadow: 0 0 10px #0ff, 0 0 20px #0ff; }
+    100% { box-shadow: 0 0 30px #0ff, 0 0 50px #0ff; }
+}
+
+/* Footer com afirmação de desenvolvimento */
+footer {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #0ff;
+    text-shadow: 0 0 10px #0ff;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>ESP Simulador</h1>
+<p>Toggle e cores de jogadores por time</p>
+<button id="toggleBtn">Toggle ESP</button>
+</header>
+
+<div id="players"></div>
+
+<footer>
+<p>Desenvolvido com 💻 por <strong>NeoTracker</strong></p>
+</footer>
+
+<script>
+let enabled = true;
+const players = [
+  {name:"Player1",team:"Red"},
+  {name:"Player2",team:"Blue"},
+  {name:"Player3",team:"Red"},
+  {name:"Player4",team:"Blue"},
+];
+
+const colors = {Red:"#ff4d4d", Blue:"#4d4dff"};
+
+const container = document.getElementById("players");
+
+function renderPlayers(){
+  container.innerHTML="";
+  players.forEach(p=>{
+    const div=document.createElement("div");
+    div.className="player";
+    div.style.backgroundColor=enabled ? colors[p.team] : "#555";
+    div.title=p.name+" ("+p.team+")";
+    container.appendChild(div);
+  });
+}
+
+document.getElementById("toggleBtn").onclick=()=>{
+  enabled=!enabled;
+  renderPlayers();
+}
+
+renderPlayers();
+</script>
+
+</body>
+</html>
